@@ -31,19 +31,21 @@ class NetGuard_Ideathon:
     
     def create(self, content, domain):
         try:
+            acct = self.contract.web3.eth.account.privateKeyToAccount(private_key)
             checkerDetails = self.contract.instance.functions.addCheckerDetail(content, domain)
-            trans = {"nonce":contract.web3.eth.getTransactionCount(acct.address), "from":acct.address, "to":contract_address, "gas":800000, "gasPrice":contract.web3.toWei("21", "gwei")}
+            trans = {"nonce":self.contract.web3.eth.getTransactionCount(acct.address), "from": acct.address, "to":contract_address, "gas":800000, "gasPrice":self.contract.web3.toWei("21", "gwei")}
             signed = acct.signTransaction(trans)
-            transaction_hash = contract.web3.eth.sendRawTransaction(signed.rawTransaction)
+            transaction_hash = self.contract.web3.eth.sendRawTransaction(signed.rawTransaction)
             return transaction_hash
         except Exception as e:
-            return str(e)
+            print(e)
+            return False
     
     def getValues(self, domain):
         try:
-            data = contract.instance.functions.CheckerDetails("facebook.com").call()
+            data = self.contract.instance.functions.CheckerDetails("facebook.com").call()
             return {"spam": data[0], "adv":data[1], "spyware":data[2], "malware":data[3], "safe":data[4]}
         except Exception as e:
-            return str(e)
-            
+            return False
+
 

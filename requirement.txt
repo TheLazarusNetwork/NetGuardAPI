@@ -1,0 +1,4 @@
+Django==3.0.8
+django-extensions==3.0.3
+infura==0.2.1
+web3==5.12.0

@@ -32,8 +32,8 @@ class NetGuard_Ideathon:
     def create(self, content, domain):
         try:
             acct = self.contract.web3.eth.account.privateKeyToAccount(private_key)
-            checkerDetails = self.contract.instance.functions.addCheckerDetail(content, domain)
-            trans = {"nonce":self.contract.web3.eth.getTransactionCount(acct.address), "from": acct.address, "to":contract_address, "gas":800000, "gasPrice":self.contract.web3.toWei("21", "gwei")}
+            checkerDetails = self.contract.instance.encodeABI(fn_name="addCheckerDetail", args=[content, domain])
+            trans = {"nonce":self.contract.web3.eth.getTransactionCount(acct.address), "from": acct.address, "to":contract_address, "gas":800000, "gasPrice":self.contract.web3.toWei("21", "gwei"), "data":checkerDetails}
             signed = acct.signTransaction(trans)
             transaction_hash = self.contract.web3.eth.sendRawTransaction(signed.rawTransaction)
             return transaction_hash

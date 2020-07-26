@@ -40,7 +40,6 @@ INSTALLED_APPS = [
 
     'rest_framework',
 
-    # 'shell_plus',
     'ideathon',
     'django_extensions'
 ]

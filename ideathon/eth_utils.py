@@ -43,7 +43,7 @@ class NetGuard_Ideathon:
     
     def getValues(self, domain):
         try:
-            data = self.contract.instance.functions.CheckerDetails("facebook.com").call()
+            data = self.contract.instance.functions.CheckerDetails(domain).call()
             return {"spam": data[0], "adv":data[1], "spyware":data[2], "malware":data[3], "safe":data[4]}
         except Exception as e:
             return False
